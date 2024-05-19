@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+      # docker-entrypoint-initdb.d is the file that is going to be executes whenever mysql container starts
+      # after adding it we need to delete ./mysql volume first and then run "docker compose up -d" again
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
